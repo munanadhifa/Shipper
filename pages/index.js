@@ -14,12 +14,8 @@ import Pagination from "./Pagination";
 const App = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [list, setList] = useState([]);
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [currentPage, setCurrentPage] = useState(1);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [postsPerPage] = useState(5);
 
   const fetchData = () => {
