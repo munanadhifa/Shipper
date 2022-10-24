@@ -4,7 +4,7 @@ const Datas = (props) => {
   return (
     <div className="relative px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
       <div className="relative mx-auto max-w-7xl overflow-auto">
-        <div className=" mt-12 flex flex-row max-w-lg lg:max-w-none gap-5  w-2/6">
+        <div className=" mt-12 md:flex md:flex-row max-w-lg lg:max-w-none gap-5 md:w-2/6">
           {props.list &&
             props.list.map((user, index) => (
               <div
@@ -12,7 +12,7 @@ const Datas = (props) => {
                 className="flex flex-col rounded-lg"
                 style={{ minWidth: "-webkit-fill-available" }}
               >
-                <div className="flex flex-1 flex-col justify-between bg-white shadow-md pb-3 ">
+                <div className="flex flex-1 flex-col justify-between bg-white shadow-md pb-3 mt-10 md:mt-0 ">
                   <div className="flex-1 border-b-2 border-grey-500 pb-2">
                     <p className="text-sm ml-3 pt-3 flex">
                       <a className="hover:underline text-neutral-400 mr-3">
@@ -62,7 +62,9 @@ const Datas = (props) => {
                   <div>
                     <a className="mt-2 block">
                       <p className="ml-3 text-neutral-400">Tanggal Lahir</p>
-                      <p className="ml-3 text-base">{user.dob.date}</p>
+                      <p className="ml-3 text-base">
+                        {user.dob.date.slice(0, 10)}
+                      </p>
                     </a>
                   </div>
                 </div>

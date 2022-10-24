@@ -38,6 +38,12 @@ const App = () => {
     fetchData();
   }, []);
 
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = list.slice(indexOfFirstPost, indexOfLastPost);
+  console.log(currentPosts);
+
   // Change page
   const paginateFront = () => setCurrentPage(currentPage + 1);
   const paginateBack = () => setCurrentPage(currentPage - 1);
@@ -229,11 +235,19 @@ const App = () => {
           <main className="flex-1">
             <div>
               <Card />
-              <DriverCard list={list} />
+              <DriverCard list={currentPosts} />
               <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={list.length}
                 paginateBack={paginateBack}
                 paginateFront={paginateFront}
+                currentPage={currentPage}
               />
+              {/* <Pagination
+                paginateBack={paginateBack}
+                paginateFront={paginateFront}
+                postsPerPage={postsPerPage}
+              /> */}
             </div>
           </main>
         </div>
