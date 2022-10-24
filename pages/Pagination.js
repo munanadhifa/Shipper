@@ -49,7 +49,7 @@
 //   );
 // }
 
-export default function Example() {
+export default function Pagination({ paginateFront, paginateBack }) {
   return (
     <nav
       className="flex items-center justify-between  bg-white px-4 py-3 sm:px-6"
@@ -59,12 +59,18 @@ export default function Example() {
         <a
           href="#"
           className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          onClick={() => {
+            paginateBack();
+          }}
         >
           Previous
         </a>
         <a
           href="#"
           className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          onClick={() => {
+            paginateFront();
+          }}
         >
           Next
         </a>

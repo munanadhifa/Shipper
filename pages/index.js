@@ -1,6 +1,4 @@
-// import styles from '../styles/Home.module.css'
-
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3BottomLeftIcon,
@@ -13,29 +11,54 @@ import Card from "./card";
 import DriverCard from "./driver_card";
 import Pagination from "./Pagination";
 
-const navigation = [
-  { name: "Beranda", href: "#", icon: HomeIcon, current: false },
-  { name: "Driver Management", href: "#", icon: UserCircleIcon, current: true },
-  { name: "Pickup", href: "#", icon: CalendarDaysIcon, current: false },
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Example() {
+const App = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [list, setList] = useState([]);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [currentPage, setCurrentPage] = useState(1);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [postsPerPage] = useState(5);
+
+  const fetchData = () => {
+    fetch("https://randomuser.me/api/?results=30")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setList(data.results);
+        console.log(data.results);
+      });
+  };
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Change page
+  const paginateFront = () => setCurrentPage(currentPage + 1);
+  const paginateBack = () => setCurrentPage(currentPage - 1);
+
+  const navigation = [
+    { name: "Beranda", href: "#", icon: HomeIcon, current: false },
+    {
+      name: "Driver Management",
+      href: "#",
+      icon: UserCircleIcon,
+      current: true,
+    },
+    { name: "Pickup", href: "#", icon: CalendarDaysIcon, current: false },
+  ];
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
@@ -206,12 +229,17 @@ export default function Example() {
           <main className="flex-1">
             <div>
               <Card />
-              <DriverCard />
-              <Pagination />
+              <DriverCard list={list} />
+              <Pagination
+                paginateBack={paginateBack}
+                paginateFront={paginateFront}
+              />
             </div>
           </main>
         </div>
       </div>
     </>
   );
-}
+};
+
+export default App;
